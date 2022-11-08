@@ -21,9 +21,9 @@ def calibration(img_dir, board_x, board_y, square_size=1.0):
         if ret:
             objpoints.append(objpoint)
             imgpoints.append(corners)
-            img = cv2.drawChessboardCorners(img, (board_x, board_y, 10), corners, ret)
+            img = cv2.drawChessboardCorners(img, (board_x, board_y), corners, ret)
             cv2.imwrite('draw.jpg', img)
 
-    ret, k, dist, R, t = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
+    ret, k, dist, _, _ = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::-1], None, None)
     print('RMS:', ret)
     np.savez('parameters.npz', k=k, dist=dist)
